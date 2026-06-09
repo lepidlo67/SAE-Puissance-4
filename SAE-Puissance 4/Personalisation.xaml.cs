@@ -15,8 +15,6 @@ namespace SAE_Puissance_4
         {
             InitializeComponent();
 
-            // --- CHARGEMENT DES PARAMÈTRES ACTUELS ---
-
             SliderContraste.Value = ParametresJeu.Current.NiveauContraste;
 
             SliderTaillePolice.Value = ParametresJeu.Current.TaillePolice;
@@ -30,7 +28,6 @@ namespace SAE_Puissance_4
                 }
             }
 
-            // 4. Charger la couleur des jetons (on convertit le texte du système en couleur WPF)
             BrushConverter convertisseur = new BrushConverter();
             PreviewJ1.Fill = (Brush)convertisseur.ConvertFromString(ParametresJeu.Current.CouleurJ1);
             PreviewJ2.Fill = (Brush)convertisseur.ConvertFromString(ParametresJeu.Current.CouleurJ2);
@@ -85,7 +82,6 @@ namespace SAE_Puissance_4
 
         private void BtnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            // --- SAUVEGARDE DANS L'INSTANCE GLOBALE DU SYSTÈME ---
             ParametresJeu.Current.NiveauContraste = (int)SliderContraste.Value;
             ParametresJeu.Current.TaillePolice = SliderTaillePolice.Value;
 
@@ -94,17 +90,14 @@ namespace SAE_Puissance_4
                 ParametresJeu.Current.NomPolice = ((ComboBoxItem)ComboPolice.SelectedItem).Content.ToString();
             }
 
-            // On transforme la couleur de l'aperçu en texte pour la stocker dans le système
             ParametresJeu.Current.CouleurJ1 = PreviewJ1.Fill.ToString();
             ParametresJeu.Current.CouleurJ2 = PreviewJ2.Fill.ToString();
 
-            // On ferme la fenêtre, le menu principal se réveille automatiquement
             this.Close();
         }
 
         private void BtnReinitialiser_Click(object sender, RoutedEventArgs e)
         {
-            // Remise des valeurs graphiques par défaut
             SliderContraste.Value = 0;
             ComboPolice.SelectedIndex = 0;
             SliderTaillePolice.Value = 16;

@@ -6,7 +6,6 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-// N'oublie pas cette ligne pour utiliser ton projet Système !
 using Systeme_Puissance_4;
 
 namespace SAE_Puissance_4
@@ -21,7 +20,8 @@ namespace SAE_Puissance_4
             InitializeComponent();
             _moteur = new MoteurJeu(parametres);
 
-            InitialiserChrono();
+            if (_moteur.Parametres.ActiverChrono)
+                InitialiserChrono();
 
             AppliquerPersonnalisation();
 
@@ -66,7 +66,6 @@ namespace SAE_Puissance_4
         {
             TxtTour.Text = "Au tour de " + _moteur.ObtenirNomJoueurActuel() + " de jouer :";
 
-            // Adapte l'affichage si on joue contre l'IA
             if (_moteur.Parametres.ContreRobot)
             {
                 TxtNomJ2.Text = "IA";
@@ -82,7 +81,6 @@ namespace SAE_Puissance_4
                 JetonJ2_Carre.Visibility = Visibility.Collapsed;
             }
 
-            // Adapte l'affichage si le mode Challenge est activé
             if (_moteur.Parametres.ModeChallenge)
             {
                 TxtScoreJ1.Visibility = Visibility.Visible;
@@ -181,6 +179,9 @@ namespace SAE_Puissance_4
 
                 if (_moteur.VerifierVictoire())
                 {
+                    if (_moteur.Parametres.ActiverChrono)
+                        _timer.Stop();
+
                     TxtTour.Text = $"Victoire de {_moteur.ObtenirNomGagnant()}!";
                     MessageBox.Show("Partie terminée !");
 

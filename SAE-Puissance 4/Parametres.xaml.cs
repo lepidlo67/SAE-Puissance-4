@@ -16,7 +16,6 @@ namespace SAE_Puissance_4
         {
             InitializeComponent();
 
-            // MODIFICATION : Au chargement, on affiche les vraies valeurs globales actuelles
             TxtColonnes.Text = ParametresJeu.Current.Colonnes.ToString();
             TxtLignes.Text = ParametresJeu.Current.Lignes.ToString();
             TxtJetons.Text = ParametresJeu.Current.JetonsPourGagner.ToString();

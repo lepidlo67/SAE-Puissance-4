@@ -29,7 +29,6 @@ namespace SAE_Puissance_4
             if (ParametresJeu.Current.NiveauContraste == 2)
             {
                 this.Background = Brushes.Black;
-                // Comme tes boutons n'ont pas de style complexe, tu pourrais aussi les colorier en noir/blanc ici
             }
             else if (ParametresJeu.Current.NiveauContraste == 1)
             {
