@@ -7,23 +7,40 @@ namespace Systeme_Puissance_4
     public class MoteurJeu
     {
         public ParametresJeu Parametres { get; set; }
+        private string NomJoueur { get; set; } = "J1";
+        public int[,] Plateau { get; set; }
 
         public MoteurJeu(ParametresJeu parametres)
         {
             Parametres = parametres;
+            Plateau = new int[Parametres.Lignes, Parametres.Colonnes];
 
-            // C'est ici que tu devras initialiser ton tableau 2D (la grille mathématique)
-            // ex: _grille = new int[parametres.Lignes, parametres.Colonnes];
+            for (int i = 0; i < Parametres.Lignes; i++)
+            {
+                for (int j = 0; j < Parametres.Colonnes; j++)
+                {
+                    Plateau[i, j] = -1;
+                }
+            }
         }
 
-        // Méthode appelée par l'interface quand on clique sur une colonne
-        public int PlacerJeton(int colonne)
+        public int VerifierPlacement(int colonne)
         {
-            // TO DO : Coder la vraie logique mathématique ici (SAE 2.01).
-            // Tu devras parcourir ton tableau 2D de bas en haut pour trouver la première case vide.
+            for (int i = Parametres.Lignes - 1; i >= 0; i--)
+            {
+                if (Plateau[i, colonne] == -1)
+                {
+                    AjouterPion(i, colonne);
+                    return i;
+                }
+            }
 
-            // Pour l'instant, on triche pour que ton interface compile et affiche un jeton tout en bas :
-            return Parametres.Lignes - 1;
+            return -1;
+        }
+
+        public void AjouterPion(int ligne, int colonne)
+        {
+            Plateau[ligne, colonne] = NomJoueur == "J1" ? 1 : 2;
         }
 
         // Méthode appelée par l'interface pour savoir si la partie est finie
@@ -37,13 +54,18 @@ namespace Systeme_Puissance_4
         // Fournit le nom du joueur à l'interface pour l'affichage
         public string ObtenirNomJoueurActuel()
         {
-            return "J1"; // TO DO : Alterner entre J1 et J2/IA
+            return NomJoueur; // TO DO : Alterner entre J1 et J2/IA
+        }
+
+        public void AlternerJoueurs()
+        {
+            NomJoueur = NomJoueur == "J1" ? Parametres.ContreRobot ? "IA" : "J2" : "J1";
         }
 
         // Fournit la couleur du joueur à l'interface pour colorier le rond
         public string ObtenirCouleurJoueurActuel()
         {
-            return Parametres.CouleurJ1; // TO DO : Alterner la couleur selon le tour
+            return NomJoueur == "J1" ? Parametres.CouleurJ1 : Parametres.CouleurJ2; // TO DO : Alterner la couleur selon le tour
         }
     }
 }

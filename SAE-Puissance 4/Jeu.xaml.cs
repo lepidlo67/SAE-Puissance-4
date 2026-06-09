@@ -72,6 +72,8 @@ namespace SAE_Puissance_4
 
         private void ConfigurerAffichageInitial()
         {
+            TxtTour.Text = "Au tour de " + _moteur.ObtenirNomJoueurActuel() + " de jouer :";
+
             // Adapte l'affichage si on joue contre l'IA
             if (_moteur.Parametres.ContreRobot)
             {
@@ -139,23 +141,22 @@ namespace SAE_Puissance_4
             int colonne = indexCase % _moteur.Parametres.Colonnes;
 
             // On demande au système de placer le jeton
-            int ligneOuTombeLeJeton = _moteur.PlacerJeton(colonne);
+            int ligneOuTombeLeJeton = _moteur.VerifierPlacement(colonne);
 
             // Si la ligne n'est pas -1, c'est que le coup est valide
             if (ligneOuTombeLeJeton != -1)
             {
-                // On met à jour l'interface graphique
                 MettreAJourJetonGraphique(colonne, ligneOuTombeLeJeton);
 
-                // On demande au système si quelqu'un a gagné
                 if (_moteur.VerifierVictoire())
                 {
-                    TxtTour.Text = "Victoire !";
+                    TxtTour.Text = $"Victoire de {_moteur.ObtenirNomJoueurActuel()}!";
                     MessageBox.Show("Partie terminée !");
                 }
                 else
                 {
-                    // Sinon, on met à jour le texte pour le joueur suivant
+                    _moteur.AlternerJoueurs();
+
                     TxtTour.Text = "Au tour de " + _moteur.ObtenirNomJoueurActuel() + " de jouer :";
                 }
             }
