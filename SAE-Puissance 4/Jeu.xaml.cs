@@ -124,7 +124,7 @@ namespace SAE_Puissance_4
                     Stroke = Brushes.Black,
                     StrokeThickness = 1,
                     Margin = new Thickness(5),
-                    Tag = i // On mémorise le numéro de la case
+                    Tag = i
                 };
 
                 caseVide.MouseLeftButtonDown += Case_Click;
@@ -137,13 +137,10 @@ namespace SAE_Puissance_4
             Ellipse caseCliquee = (Ellipse)sender;
             int indexCase = (int)caseCliquee.Tag;
 
-            // On calcule la colonne cliquée
             int colonne = indexCase % _moteur.Parametres.Colonnes;
 
-            // On demande au système de placer le jeton
             int ligneOuTombeLeJeton = _moteur.VerifierPlacement(colonne);
 
-            // Si la ligne n'est pas -1, c'est que le coup est valide
             if (ligneOuTombeLeJeton != -1)
             {
                 MettreAJourJetonGraphique(colonne, ligneOuTombeLeJeton);

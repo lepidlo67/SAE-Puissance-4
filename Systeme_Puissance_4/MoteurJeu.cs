@@ -9,7 +9,7 @@ namespace Systeme_Puissance_4
         public ParametresJeu Parametres { get; set; }
         private string NomJoueur { get; set; } = "J1";
         public int[,] Plateau { get; set; }
-        public string NomGagnant { get; set; }
+        public string? NomGagnant { get; set; }
 
         public MoteurJeu(ParametresJeu parametres)
         {
@@ -44,7 +44,6 @@ namespace Systeme_Puissance_4
             Plateau[ligne, colonne] = NomJoueur == "J1" ? 1 : 2;
         }
 
-        // Méthode appelée par l'interface pour savoir si la partie est finie
         public bool VerifierVictoire()
         {
             int n = Parametres.JetonsPourGagner;
@@ -101,7 +100,6 @@ namespace Systeme_Puissance_4
             return false;
         }
 
-        // Fournit le nom du joueur à l'interface pour l'affichage
         public string ObtenirNomJoueurActuel()
         {
             return NomJoueur;
