@@ -183,6 +183,14 @@ namespace SAE_Puissance_4
                 {
                     TxtTour.Text = $"Victoire de {_moteur.ObtenirNomGagnant()}!";
                     MessageBox.Show("Partie terminée !");
+
+                    if (_moteur.Parametres.ModeChallenge)
+                    {
+                        Jeu nouv = new(_moteur.Parametres);
+                        MessageBox.Show("Une autre partie avec les mêmes paramètres va être lancée grâce au mode challenge", "Mode challenge", MessageBoxButton.OK, MessageBoxImage.Information);
+                        nouv.Show();
+                        this.Close();
+                    }
                 }
                 else
                 {
