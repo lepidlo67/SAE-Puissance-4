@@ -9,6 +9,7 @@ namespace Systeme_Puissance_4
         public ParametresJeu Parametres { get; set; }
         private string NomJoueur { get; set; } = "J1";
         public int[,] Plateau { get; set; }
+        public string NomGagnant { get; set; }
 
         public MoteurJeu(ParametresJeu parametres)
         {
@@ -46,15 +47,72 @@ namespace Systeme_Puissance_4
         // Méthode appelée par l'interface pour savoir si la partie est finie
         public bool VerifierVictoire()
         {
-            // TO DO : Coder la vérification des alignements (horizontal, vertical, diagonal).
+            int n = Parametres.JetonsPourGagner;
 
-            return false; // On renvoie faux pour l'instant
+            int[][] directions = new int[][]
+            {
+                new int[] { 0, 1 },
+                new int[] { 1, 0 },
+                new int[] { 1, 1 },
+                new int[] { -1, 1 }
+            };
+
+            for (int i = 0; i < Parametres.Lignes; i++)
+            {
+                for (int j = 0; j < Parametres.Colonnes; j++)
+                {
+                    int joueurCherche = Plateau[i, j];
+
+                    if (joueurCherche == -1)
+                        continue;
+
+                    foreach (var dir in directions)
+                    {
+                        int dLigne = dir[0];
+                        int dColonne = dir[1];
+
+                        int derniereLigne = i + (n - 1) * dLigne;
+                        int derniereColonne = j + (n - 1) * dColonne;
+
+                        if (derniereLigne >= 0 && derniereLigne < Parametres.Lignes &&
+                            derniereColonne >= 0 && derniereColonne < Parametres.Colonnes)
+                        {
+                            bool alignementComplet = true;
+
+                            for (int k = 1; k < n; k++)
+                            {
+                                if (Plateau[i + k * dLigne, j + k * dColonne] != joueurCherche)
+                                {
+                                    alignementComplet = false;
+                                    break;
+                                }
+                            }
+
+                            if (alignementComplet)
+                            {
+                                NomGagnant = Plateau[i, j] == 1 ? "J1" : Parametres.ContreRobot ? "IA" : "J2";
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+            }
+            return false;
         }
 
         // Fournit le nom du joueur à l'interface pour l'affichage
         public string ObtenirNomJoueurActuel()
         {
-            return NomJoueur; // TO DO : Alterner entre J1 et J2/IA
+            return NomJoueur;
+        }
+
+        public string? ObtenirNomGagnant()
+        {
+            if (VerifierVictoire())
+                return NomGagnant;
+
+            return null;
         }
 
         public void AlternerJoueurs()
@@ -62,10 +120,9 @@ namespace Systeme_Puissance_4
             NomJoueur = NomJoueur == "J1" ? Parametres.ContreRobot ? "IA" : "J2" : "J1";
         }
 
-        // Fournit la couleur du joueur à l'interface pour colorier le rond
         public string ObtenirCouleurJoueurActuel()
         {
-            return NomJoueur == "J1" ? Parametres.CouleurJ1 : Parametres.CouleurJ2; // TO DO : Alterner la couleur selon le tour
+            return NomJoueur == "J1" ? Parametres.CouleurJ1 : Parametres.CouleurJ2;
         }
     }
 }

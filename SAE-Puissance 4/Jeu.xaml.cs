@@ -150,7 +150,7 @@ namespace SAE_Puissance_4
 
                 if (_moteur.VerifierVictoire())
                 {
-                    TxtTour.Text = $"Victoire de {_moteur.ObtenirNomJoueurActuel()}!";
+                    TxtTour.Text = $"Victoire de {_moteur.ObtenirNomGagnant()}!";
                     MessageBox.Show("Partie terminée !");
                 }
                 else
@@ -176,6 +176,11 @@ namespace SAE_Puissance_4
         }
 
         private void BtnEnregistrerQuitter_Click(object sender, RoutedEventArgs e)
+        {
+            QuitterJeu();
+        }
+
+        private void QuitterJeu()
         {
             MessageBox.Show("Partie enregistrée !");
 
