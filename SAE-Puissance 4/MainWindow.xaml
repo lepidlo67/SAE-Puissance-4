@@ -7,31 +7,10 @@
         mc:Ignorable="d"
         Title="Puissance 4 - MENU" Height="450" Width="800" WindowStartupLocation="CenterScreen">
 
-    <Window.Resources>
-        <Style x:Key="RoundedButtonStyle" TargetType="Button">
-            <Setter Property="FontFamily" Value="Comic Sans MS"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="Black" 
-                                BorderThickness="2" 
-                                CornerRadius="8">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-
     <Grid Background="White">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="459">
 
             <TextBlock Text="PUISSANCE 4" 
-                       FontFamily="Comic Sans MS" 
                        FontSize="54" 
                        FontWeight="Bold" 
                        HorizontalAlignment="Center" 
@@ -42,7 +21,10 @@
                     Height="70" 
                     FontSize="32" 
                     Background="#A9D0F5" 
-                    Style="{StaticResource RoundedButtonStyle}" 
+                    Foreground="Black"
+                    Cursor="Hand"
+                    BorderBrush="Black"
+                    BorderThickness="2"
                     Margin="0,0,0,10"/>
 
             <Button x:Name="btn_Sauvegardes" 
@@ -50,7 +32,10 @@
                     Height="45" 
                     FontSize="22" 
                     Background="#A9DFBF" 
-                    Style="{StaticResource RoundedButtonStyle}" 
+                    Foreground="Black"
+                    Cursor="Hand"
+                    BorderBrush="Black"
+                    BorderThickness="2"
                     Margin="0,0,0,10"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -60,7 +45,10 @@
                         Height="40" Width="223" 
                         FontSize="18" 
                         Background="#E0E0E0" 
-                        Style="{StaticResource RoundedButtonStyle}" 
+                        Foreground="Black"
+                        Cursor="Hand"
+                        BorderBrush="Black"
+                        BorderThickness="2"
                         Margin="0,0,10,0"
                         Click="btn_parametres_Click"/>
 
@@ -69,7 +57,10 @@
                         Height="40" Width="223" 
                         FontSize="18" 
                         Background="#FAD7A1" 
-                        Style="{StaticResource RoundedButtonStyle}"/>
+                        Foreground="Black"
+                        Cursor="Hand"
+                        BorderBrush="Black"
+                        BorderThickness="2"/>
             </StackPanel>
 
         </StackPanel>

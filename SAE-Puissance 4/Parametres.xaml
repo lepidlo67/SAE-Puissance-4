@@ -14,38 +14,24 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <TextBlock Grid.Row="0" Text="Paramètres" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
-            <StackPanel Grid.Row="1">
-                <Border BorderBrush="Black" BorderThickness="1.5" CornerRadius="8" Margin="0,0,0,18" Padding="15">
-                    <StackPanel>
-                        <TextBlock Text="Mode de jeu" FontSize="12" Foreground="Gray" Margin="0,-25,0,10" Background="White" HorizontalAlignment="Left" Padding="5,0"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button x:Name="BtnVsAmi" Content="👤 Vs Ami" Grid.Column="0" Margin="5" Height="40" Background="Black" Foreground="White" BorderBrush="Black" BorderThickness="2" Click="BtnVsAmi_Click">
-                                <Button.Resources>
-                                    <Style TargetType="Border">
-                                        <Setter Property="CornerRadius" Value="5"/>
-                                    </Style>
-                                </Button.Resources>
-                            </Button>
-                            <Button x:Name="BtnVsRobot" Content="🤖 Vs Robot" Grid.Column="1" Margin="5" Height="40" Background="White" Foreground="Black" BorderBrush="Black" BorderThickness="2" Click="BtnVsRobot_Click">
-                                <Button.Resources>
-                                    <Style TargetType="Border">
-                                        <Setter Property="CornerRadius" Value="5"/>
-                                    </Style>
-                                </Button.Resources>
-                            </Button>
-                        </Grid>
-                    </StackPanel>
-                </Border>
 
-                <Border x:Name="PanelDifficulte" Visibility="Collapsed" BorderBrush="Black" BorderThickness="1.5" CornerRadius="8" Margin="0,0,0,18" Padding="15">
+            <TextBlock Grid.Row="0" Text="Paramètres" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <StackPanel Grid.Row="1">
+
+                <GroupBox Header="Mode de jeu" Margin="0,0,0,15" Padding="10" FontSize="12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="BtnVsAmi" Content="👤 Vs Ami" Grid.Column="0" Margin="5" Height="40" Background="Black" Foreground="White" BorderBrush="Black" BorderThickness="2" Click="BtnVsAmi_Click"/>
+                        <Button x:Name="BtnVsRobot" Content="🤖 Vs Robot" Grid.Column="1" Margin="5" Height="40" Background="White" Foreground="Black" BorderBrush="Black" BorderThickness="2" Click="BtnVsRobot_Click"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox x:Name="PanelDifficulte" Header="Choix du niveau du Robot" Margin="0,0,0,15" Padding="10" Visibility="Collapsed" FontSize="12">
                     <StackPanel>
-                        <TextBlock Text="Choix difficulté Robot" FontSize="12" Foreground="Gray" Margin="0,-25,0,10" Background="White" HorizontalAlignment="Left" Padding="5,0"/>
                         <Slider x:Name="SliderDifficulte" Minimum="0" Maximum="2" TickFrequency="1" IsSnapToTickEnabled="True" Margin="10,10,10,0"/>
                         <Grid Margin="10,5,10,0">
                             <Grid.ColumnDefinitions>
@@ -58,12 +44,10 @@
                             <TextBlock Text="Difficile" Grid.Column="2" HorizontalAlignment="Right" FontSize="11"/>
                         </Grid>
                     </StackPanel>
-                </Border>
+                </GroupBox>
 
-                <Border BorderBrush="Black" BorderThickness="1.5" CornerRadius="8" Margin="0,0,0,18" Padding="15">
+                <GroupBox Header="Modifications Grille" Margin="0,0,0,15" Padding="10" FontSize="12">
                     <StackPanel>
-                        <TextBlock Text="Modifications Grille" FontSize="12" Foreground="Gray" Margin="0,-25,0,10" Background="White" HorizontalAlignment="Left" Padding="5,0"/>
-
                         <Grid Margin="0,5">
                             <TextBlock Text="Taille Grille" FontSize="16" VerticalAlignment="Center" FontWeight="Bold"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -79,22 +63,20 @@
                         </Grid>
 
                         <Grid Margin="0,15,0,5">
-                            <TextBlock Text="Nombre de&#x0a;jetons à aligner" FontSize="16" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="Nombre de jetons à aligner" FontSize="16" VerticalAlignment="Center" FontWeight="Bold"/>
                             <TextBox x:Name="TxtJetons" Text="4" Width="40" Height="25" TextAlignment="Center" HorizontalAlignment="Right" BorderBrush="Black" BorderThickness="1"/>
                         </Grid>
                     </StackPanel>
-                </Border>
+                </GroupBox>
 
-                <Border BorderBrush="Black" BorderThickness="1.5" CornerRadius="8" Margin="0,0,0,18" Padding="15">
+                <GroupBox Header="Options Supplémentaires" Margin="0,0,0,15" Padding="10" FontSize="12">
                     <StackPanel>
-                        <TextBlock Text="Options Supplémentaires" FontSize="12" Foreground="Gray" Margin="0,-25,0,10" Background="White" HorizontalAlignment="Left" Padding="5,0"/>
-
                         <Grid Margin="0,5">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Mode Challenge" FontSize="16" VerticalAlignment="Center" FontWeight="Bold"/>
                                 <Button Content="ⓘ" Background="Transparent" BorderThickness="0" FontSize="16" Margin="5,0,0,0" Cursor="Hand" Click="BtnInfo_Click"/>
                             </StackPanel>
-                            <CheckBox x:Name="TglChallenge" HorizontalAlignment="Left" Margin="314,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="-0.444,0.519" />
+                            <CheckBox x:Name="TglChallenge" HorizontalAlignment="Left" Margin="314,0,0,0" VerticalAlignment="Center" />
                         </Grid>
 
                         <Grid Margin="0,15,0,5">
@@ -102,7 +84,7 @@
                             <CheckBox x:Name="TglChrono" HorizontalAlignment="Left" Margin="314,6,0,0" VerticalAlignment="Top" IsChecked="False"/>
                         </Grid>
                     </StackPanel>
-                </Border>
+                </GroupBox>
 
                 <Border x:Name="PopupInfo" Background="#FFF9C4" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,15" Visibility="Collapsed">
                     <Grid>
@@ -114,21 +96,8 @@
             </StackPanel>
 
             <StackPanel Grid.Row="2" Margin="0,10,0,0">
-                <Button x:Name="BtnEnregistrer" Content="Enregistrer Modifications" Background="#2E8B57" Foreground="White" FontSize="16" Height="45" BorderBrush="Black" BorderThickness="1" Margin="0,0,0,10" Click="BtnEnregistrer_Click">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-
-                <Button x:Name="BtnReinitialiser" Content="Renitialiser" Background="#DC143C" Foreground="White" FontSize="16" Height="45" BorderBrush="Black" BorderThickness="1" Click="BtnReinitialiser_Click">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
+                <Button x:Name="BtnEnregistrer" Content="Enregistrer Modifications" Background="#2E8B57" Foreground="White" FontSize="16" Height="45" BorderBrush="Black" BorderThickness="1" Margin="0,0,0,10" Click="BtnEnregistrer_Click"/>
+                <Button x:Name="BtnReinitialiser" Content="Renitialiser" Background="#DC143C" Foreground="White" FontSize="16" Height="45" BorderBrush="Black" BorderThickness="1" Click="BtnReinitialiser_Click"/>
             </StackPanel>
         </Grid>
     </ScrollViewer>
