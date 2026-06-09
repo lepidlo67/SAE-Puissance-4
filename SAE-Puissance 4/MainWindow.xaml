@@ -5,20 +5,73 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SAE_Puissance_4"
         mc:Ignorable="d"
-        Title="Puissance 4 - MENU" Height="450" Width="800">
-    <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Height="96" Width="452" FontSize="72" FontWeight="Bold" RenderTransformOrigin="0.497,0.488"><Run Language="fr-fr" Text="PUISSANCE 4"/></TextBlock>
-            <Button x:Name="btn_Jouer" Content="JOUER" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Height="89" Width="320" FontSize="48" BorderThickness="2,2,2,2" Background="#FF8DC1E3" BorderBrush="#FF2382C2"/>
-            <Button x:Name="btn_Sauvegardes" Content="Sauvegardes" HorizontalAlignment="Center" Margin="0,144,0,0" Grid.Row="1" VerticalAlignment="Top" Width="320" Height="58" BorderBrush="#FF4C6372" Background="#FF61B0E3" FontSize="22" Grid.RowSpan="2"/>
-            <Button x:Name="btn_parametres" Content="Paramètres" HorizontalAlignment="Left" Margin="240,73,0,0" Grid.Row="2" VerticalAlignment="Top" Width="155" Height="43" BorderBrush="#FF4C6372" Background="#FFA5B0B7" FontSize="22"/>
-            <Button x:Name="btn_personalisation" Content="Personalisation" HorizontalAlignment="Left" Margin="400,73,0,0" Grid.Row="2" VerticalAlignment="Top" Width="160" Height="43" BorderBrush="#FFD4DD10" Background="#FFDDE361" FontSize="22"/>
-        </Grid>
+        Title="Puissance 4 - MENU" Height="450" Width="800" WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="Black" 
+                                BorderThickness="2" 
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="White">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="459">
+
+            <TextBlock Text="PUISSANCE 4" 
+                       FontFamily="Comic Sans MS" 
+                       FontSize="54" 
+                       FontWeight="Bold" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,30"/>
+
+            <Button x:Name="btn_Jouer" 
+                    Content="JOUER" 
+                    Height="70" 
+                    FontSize="32" 
+                    Background="#A9D0F5" 
+                    Style="{StaticResource RoundedButtonStyle}" 
+                    Margin="0,0,0,10"/>
+
+            <Button x:Name="btn_Sauvegardes" 
+                    Content="Sauvegardes" 
+                    Height="45" 
+                    FontSize="22" 
+                    Background="#A9DFBF" 
+                    Style="{StaticResource RoundedButtonStyle}" 
+                    Margin="0,0,0,10"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <Button x:Name="btn_parametres" 
+                        Content="Paramètres" 
+                        Height="40" Width="223" 
+                        FontSize="18" 
+                        Background="#E0E0E0" 
+                        Style="{StaticResource RoundedButtonStyle}" 
+                        Margin="0,0,10,0"
+                        Click="btn_parametres_Click"/>
+
+                <Button x:Name="btn_personalisation" 
+                        Content="Personalisation" 
+                        Height="40" Width="223" 
+                        FontSize="18" 
+                        Background="#FAD7A1" 
+                        Style="{StaticResource RoundedButtonStyle}"/>
+            </StackPanel>
+
+        </StackPanel>
     </Grid>
 </Window>

@@ -20,5 +20,11 @@ namespace SAE_Puissance_4
         {
             InitializeComponent();
         }
+
+        private void btn_parametres_Click(object sender, RoutedEventArgs e)
+        {
+            Parametres fenetre = new Parametres(); 
+            fenetre.ShowDialog(); 
+        }
     }
 }
