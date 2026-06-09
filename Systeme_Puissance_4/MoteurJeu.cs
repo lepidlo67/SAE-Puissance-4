@@ -10,6 +10,8 @@ namespace Systeme_Puissance_4
         private string NomJoueur { get; set; } = "J1";
         public int[,] Plateau { get; set; }
         public string? NomGagnant { get; set; }
+        public int TempsJ1 { get; set; } = 30;
+        public int TempsJ2 { get; set; } = 30;
 
         public MoteurJeu(ParametresJeu parametres)
         {
@@ -121,6 +123,22 @@ namespace Systeme_Puissance_4
         public string ObtenirCouleurJoueurActuel()
         {
             return NomJoueur == "J1" ? Parametres.CouleurJ1 : Parametres.CouleurJ2;
+        }
+
+        public int RetirerTemps(int numJoueur, int deltaT)
+        {
+            int nouvTemps;
+
+            if (numJoueur == 1)
+            {
+                nouvTemps=TempsJ1 = Math.Max(0, TempsJ1 - deltaT);
+            }
+            else
+            {
+                nouvTemps=TempsJ2 = Math.Max(0, TempsJ2 - deltaT);
+            }
+
+            return nouvTemps;
         }
     }
 }

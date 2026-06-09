@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Systeme_Puissance_4; // Permet d'appeler ton projet Système
+using Systeme_Puissance_4;
 
 namespace SAE_Puissance_4
 {
@@ -24,7 +24,6 @@ namespace SAE_Puissance_4
         }
         private void AppliquerPersonnalisation()
         {
-            // On lit depuis l'instance statique globale
             this.FontFamily = new FontFamily(ParametresJeu.Current.NomPolice);
 
             if (ParametresJeu.Current.NiveauContraste == 2)
@@ -55,7 +54,7 @@ namespace SAE_Puissance_4
 
         private void btn_Jouer_Click(object sender, RoutedEventArgs e)
         {
-            Jeu fenetre = new Jeu(Systeme_Puissance_4.ParametresJeu.Current);
+            Jeu fenetre = new Jeu(ParametresJeu.Current);
 
             fenetre.Show();
             this.Close();

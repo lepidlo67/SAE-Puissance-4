@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+
 // N'oublie pas cette ligne pour utiliser ton projet Système !
 using Systeme_Puissance_4;
 
@@ -11,39 +13,32 @@ namespace SAE_Puissance_4
 {
     public partial class Jeu : Window
     {
-        // La référence vers le cerveau de ton jeu
         private MoteurJeu _moteur;
+        private DispatcherTimer _timer;
 
-        // Le constructeur reçoit les paramètres depuis tes fenêtres précédentes
         public Jeu(ParametresJeu parametres)
         {
             InitializeComponent();
             _moteur = new MoteurJeu(parametres);
 
-            // 1. On applique le design global
+            InitialiserChrono();
+
             AppliquerPersonnalisation();
 
             ConfigurerAffichageInitial();
             GenererGrilleVisuelle();
         }
 
-        // Nouvelle méthode à copier-coller
         private void AppliquerPersonnalisation()
         {
-            // --- 1. POLICE ---
-            // Applique la police choisie à toute la fenêtre
             this.FontFamily = new FontFamily(_moteur.Parametres.NomPolice);
 
-            // (Optionnel) Appliquer la taille de base. 
-            // Attention : ça ne modifiera pas les TextBlock où tu as déjà écrit FontSize="24" en dur dans le XAML.
             this.FontSize = _moteur.Parametres.TaillePolice;
 
-            // --- 2. CONTRASTE ---
-            // 0 = Bas/Normal, 1 = Moyen, 2 = Elevé
             if (_moteur.Parametres.NiveauContraste == 2)
             {
                 this.Background = Brushes.Black;
-                this.Foreground = Brushes.White; // Le texte par défaut devient blanc
+                this.Foreground = Brushes.White;
             }
             else if (_moteur.Parametres.NiveauContraste == 1)
             {
@@ -56,11 +51,8 @@ namespace SAE_Puissance_4
                 this.Foreground = Brushes.Black;
             }
 
-            // --- 3. COULEURS DES JETONS DANS L'EN-TÊTE ---
-            // Pour que les ronds J1 et J2 en haut de l'écran aient la bonne couleur
             BrushConverter convertisseur = new BrushConverter();
 
-            // Note : Il faut ajouter un x:Name="JetonJ1" à l'ellipse du joueur 1 dans ton Jeu.xaml pour que ça marche
             JetonJ1.Fill = (Brush)convertisseur.ConvertFromString(_moteur.Parametres.CouleurJ1);
 
             if (JetonJ2_Cercle != null)
@@ -99,12 +91,54 @@ namespace SAE_Puissance_4
                 TxtScoreJ2.Text = "0";
             }
 
-            // Adapte l'affichage si le chrono est activé
             if (_moteur.Parametres.ActiverChrono)
             {
                 PanelChronoJ1.Visibility = Visibility.Visible;
                 PanelChronoJ2.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void InitialiserChrono()
+        {
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += Timer_Tick;
+            _timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            string joueurActif = _moteur.ObtenirNomJoueurActuel();
+
+            int tempsRestant = _moteur.RetirerTemps(joueurActif == "J1" ? 1 : 2, 1);
+
+            MettreAJourAffichageChrono(joueurActif);
+
+            if (tempsRestant <= 0)
+            {
+                _timer.Stop();
+
+                string gagnant = (joueurActif == "J1" ? _moteur.Parametres.ContreRobot ? "IA" : "J2" : "J1");
+
+                MessageBox.Show($"Temps écoulé pour le Joueur {joueurActif} ! {gagnant} remporte la partie !");
+            }
+        }
+
+        private void MettreAJourAffichageChrono(string joueurActif)
+        {
+            if (joueurActif == "J1")
+            {
+                PanelChronoJ1.Visibility = Visibility.Visible;
+                PanelChronoJ2.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                PanelChronoJ1.Visibility = Visibility.Hidden;
+                PanelChronoJ2.Visibility = Visibility.Visible;
+            }
+
+            TxtChronoJ1.Text = $"{_moteur.TempsJ1}sec";
+            TxtChronoJ2.Text = $"{_moteur.TempsJ2}sec";
         }
 
         private void GenererGrilleVisuelle()

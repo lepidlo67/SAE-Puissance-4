@@ -67,7 +67,6 @@ namespace SAE_Puissance_4
 
         private void BtnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            //On enregistre directement les choix dans l'instance globale
             ParametresJeu.Current.Colonnes = int.Parse(TxtColonnes.Text);
             ParametresJeu.Current.Lignes = int.Parse(TxtLignes.Text);
             ParametresJeu.Current.JetonsPourGagner = int.Parse(TxtJetons.Text);

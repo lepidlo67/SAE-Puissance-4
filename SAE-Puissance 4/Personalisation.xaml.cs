@@ -1,4 +1,4 @@
-﻿using System;   
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -17,13 +17,10 @@ namespace SAE_Puissance_4
 
             // --- CHARGEMENT DES PARAMÈTRES ACTUELS ---
 
-            // 1. Charger le contraste
             SliderContraste.Value = ParametresJeu.Current.NiveauContraste;
 
-            // 2. Charger la taille de la police
             SliderTaillePolice.Value = ParametresJeu.Current.TaillePolice;
 
-            // 3. Sélectionner la bonne police enregistrée dans la ComboBox
             foreach (ComboBoxItem item in ComboPolice.Items)
             {
                 if (item.Content.ToString() == ParametresJeu.Current.NomPolice)
@@ -38,8 +35,6 @@ namespace SAE_Puissance_4
             PreviewJ1.Fill = (Brush)convertisseur.ConvertFromString(ParametresJeu.Current.CouleurJ1);
             PreviewJ2.Fill = (Brush)convertisseur.ConvertFromString(ParametresJeu.Current.CouleurJ2);
         }
-
-        // --- GESTION EN DIRECT DE L'AFFICHAGE (APERÇU) ---
 
         private void SliderContraste_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -77,17 +72,16 @@ namespace SAE_Puissance_4
             Button btn = (Button)sender;
             Brush couleurSelectionnee = btn.Background;
 
-            if (RadioJ1.IsChecked == true)
+            if (RadioJ1.IsChecked == true && PreviewJ2.Fill != couleurSelectionnee)
             {
                 PreviewJ1.Fill = couleurSelectionnee;
             }
             else if (RadioJ2.IsChecked == true)
             {
-                PreviewJ2.Fill = couleurSelectionnee;
+                if (PreviewJ1.Fill != couleurSelectionnee)
+                    PreviewJ2.Fill = couleurSelectionnee;
             }
         }
-
-        // --- BOUTONS D'ACTION (ENREGISTRER ET REINITIALISER) ---
 
         private void BtnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
