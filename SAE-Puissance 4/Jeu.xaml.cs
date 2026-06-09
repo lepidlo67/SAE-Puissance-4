@@ -193,11 +193,92 @@ namespace SAE_Puissance_4
 
         private void Case_Click(object sender, MouseButtonEventArgs e)
         {
+            if (_moteur.ObtenirNomJoueurActuel() == "IA") return;
+
             Ellipse caseCliquee = (Ellipse)sender;
             int indexCase = (int)caseCliquee.Tag;
-
             int colonne = indexCase % _moteur.Parametres.Colonnes;
 
+            GererCoup(colonne);
+        }
+
+        private void GererCoup(int colonne)
+        {
+            int ligneOuTombeLeJeton = _moteur.VerifierPlacement(colonne);
+
+            if (ligneOuTombeLeJeton != -1)
+            {
+                MettreAJourJetonGraphique(colonne, ligneOuTombeLeJeton);
+
+                if (_moteur.VerifierVictoire())
+                {
+                    if (_moteur.Parametres.ActiverChrono)
+                        _timer.Stop();
+
+                    TxtTour.Text = $"Victoire de {_moteur.ObtenirNomGagnant()}!";
+                    MessageBox.Show("Partie terminée !");
+
+                    if (_moteur.Parametres.ModeChallenge)
+                    {
+                        if (_moteur.ObtenirNomGagnant() == "J1")
+                            _moteur.ScoreJ1++;
+                        else
+                            _moteur.ScoreJ2++;
+
+                        Jeu nouv = new(_moteur.Parametres, _moteur.ScoreJ1, _moteur.ScoreJ2);
+                        MessageBox.Show("Une autre partie avec les mêmes paramètres va être lancée grâce au mode challenge", "Mode challenge", MessageBoxButton.OK, MessageBoxImage.Information);
+                        nouv.Show();
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    _moteur.AlternerJoueurs();
+                    TxtTour.Text = "Au tour de " + _moteur.ObtenirNomJoueurActuel() + " de jouer :";
+
+                    if (_moteur.Parametres.ContreRobot && _moteur.ObtenirNomJoueurActuel() == "IA")
+                    {
+                        LancerTourIA();
+                    }
+                }
+            }
+            else
+            {
+                if (_moteur.ObtenirNomJoueurActuel() != "IA")
+                {
+                    MessageBox.Show("Cette colonne est pleine !");
+                }
+            }
+        }
+
+        private void LancerTourIA()
+        {
+            int colonne;
+            int ligne;
+            do
+            {
+                colonne = Random.Shared.Next(0, _moteur.Parametres.Colonnes);
+                ligne = ObtenirLigneDisponiblePourIA(colonne);
+            } while (ligne == -1);
+
+            GererCoup(colonne);
+        }
+
+        private int ObtenirLigneDisponiblePourIA(int colonne)
+        {
+            for (int i = _moteur.Parametres.Lignes - 1; i >= 0; i--)
+            {
+                if (_moteur.Plateau[i, colonne] == -1)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private void Jouer(int indexCase)
+        {
+            int colonne = indexCase % _moteur.Parametres.Colonnes;
             int ligneOuTombeLeJeton = _moteur.VerifierPlacement(colonne);
 
             if (ligneOuTombeLeJeton != -1)
