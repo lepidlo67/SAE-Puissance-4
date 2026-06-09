@@ -12,11 +12,15 @@ namespace Systeme_Puissance_4
         public string? NomGagnant { get; set; }
         public int TempsJ1 { get; set; } = 30;
         public int TempsJ2 { get; set; } = 30;
+        public int ScoreJ1 { get; set; }
+        public int ScoreJ2 { get; set; }
 
         public MoteurJeu(ParametresJeu parametres)
         {
             Parametres = parametres;
             Plateau = new int[Parametres.Lignes, Parametres.Colonnes];
+
+            ScoreJ1 = ScoreJ2 = 0;
 
             for (int i = 0; i < Parametres.Lignes; i++)
             {

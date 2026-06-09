@@ -29,6 +29,23 @@ namespace SAE_Puissance_4
             GenererGrilleVisuelle();
         }
 
+        public Jeu(ParametresJeu parametres, int score1, int score2)
+        {
+            InitializeComponent();
+            _moteur = new MoteurJeu(parametres);
+
+            _moteur.ScoreJ1 = score1;
+            _moteur.ScoreJ2 = score2;
+
+            if (_moteur.Parametres.ActiverChrono)
+                InitialiserChrono();
+
+            AppliquerPersonnalisation();
+
+            ConfigurerAffichageInitial();
+            GenererGrilleVisuelle();
+        }
+
         private void AppliquerPersonnalisation()
         {
             this.FontFamily = new FontFamily(_moteur.Parametres.NomPolice);
@@ -66,6 +83,11 @@ namespace SAE_Puissance_4
         {
             TxtTour.Text = "Au tour de " + _moteur.ObtenirNomJoueurActuel() + " de jouer :";
 
+            if (_moteur.Parametres.ModeChallenge)
+            {
+                TxtScoreJ1.Visibility = TxtScoreJ2.Visibility = Visibility.Visible;
+            }
+
             if (_moteur.Parametres.ContreRobot)
             {
                 TxtNomJ2.Text = "IA";
@@ -85,8 +107,7 @@ namespace SAE_Puissance_4
             {
                 TxtScoreJ1.Visibility = Visibility.Visible;
                 TxtScoreJ2.Visibility = Visibility.Visible;
-                TxtScoreJ1.Text = "0";
-                TxtScoreJ2.Text = "0";
+                AffichageScore();
             }
 
             if (_moteur.Parametres.ActiverChrono)
@@ -94,6 +115,12 @@ namespace SAE_Puissance_4
                 PanelChronoJ1.Visibility = Visibility.Visible;
                 PanelChronoJ2.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void AffichageScore()
+        {
+            TxtScoreJ1.Text = $"{_moteur.ScoreJ1}";
+            TxtScoreJ2.Text = $"{_moteur.ScoreJ2}";
         }
 
         private void InitialiserChrono()
@@ -187,7 +214,12 @@ namespace SAE_Puissance_4
 
                     if (_moteur.Parametres.ModeChallenge)
                     {
-                        Jeu nouv = new(_moteur.Parametres);
+                        if (_moteur.ObtenirNomGagnant() == "J1")
+                            _moteur.ScoreJ1++;
+                        else
+                            _moteur.ScoreJ2++;
+
+                        Jeu nouv = new(_moteur.Parametres, _moteur.ScoreJ1, _moteur.ScoreJ2);
                         MessageBox.Show("Une autre partie avec les mêmes paramètres va être lancée grâce au mode challenge", "Mode challenge", MessageBoxButton.OK, MessageBoxImage.Information);
                         nouv.Show();
                         this.Close();
