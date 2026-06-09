@@ -1,0 +1,67 @@
+﻿<Window x:Class="SAE_Puissance_4.Jeu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SAE_Puissance_4"
+        mc:Ignorable="d"
+        Title="Puissance 4 - Jeu" Height="650" Width="700" WindowStartupLocation="CenterScreen">
+
+    <Grid Background="White" Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#F0F0F0" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0">
+                    <TextBlock Text="👤" FontSize="24" Margin="0,0,10,0"/>
+                    <TextBlock Text="J1" FontSize="24" FontWeight="Bold" Margin="0,0,10,0"/>
+                    <Ellipse Width="35" Height="35" Fill="#89CFF0" Stroke="Black" StrokeThickness="2" Margin="0,0,10,0"/>
+                    <StackPanel x:Name="PanelChronoJ1" Orientation="Horizontal" Visibility="Collapsed" VerticalAlignment="Center">
+                        <TextBlock Text="⏱" FontSize="20" Foreground="Red"/>
+                        <TextBlock x:Name="TxtChronoJ1" Text="30sec" FontSize="16" Foreground="Red" FontWeight="Bold" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="TxtScoreJ1" Text="2" FontSize="28" FontWeight="Bold" Foreground="Blue" Visibility="Collapsed" Margin="0,0,15,0"/>
+                    <TextBlock Text="VS" FontSize="24" FontWeight="Bold"/>
+                    <TextBlock x:Name="TxtScoreJ2" Text="2" FontSize="28" FontWeight="Bold" Foreground="Purple" Visibility="Collapsed" Margin="15,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
+                    <StackPanel x:Name="PanelChronoJ2" Orientation="Horizontal" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,10,0">
+                        <TextBlock x:Name="TxtChronoJ2" Text="30sec" FontSize="16" Foreground="Red" FontWeight="Bold" Margin="0,0,5,0"/>
+                        <TextBlock Text="⏱" FontSize="20" Foreground="Red"/>
+                    </StackPanel>
+
+                    <Ellipse x:Name="JetonJ2_Cercle" Width="35" Height="35" Fill="#DDA0DD" Stroke="Black" StrokeThickness="2" Margin="0,0,10,0"/>
+                    <Border x:Name="JetonJ2_Carre" Width="35" Height="35" Background="#DDA0DD" BorderBrush="Black" BorderThickness="2" CornerRadius="5" Margin="0,0,10,0" Visibility="Collapsed"/>
+
+                    <TextBlock x:Name="TxtNomJ2" Text="J2" FontSize="24" FontWeight="Bold" Margin="0,0,10,0"/>
+                    <TextBlock x:Name="IconeJ2" Text="👤" FontSize="24"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TextBlock x:Name="TxtTour" Grid.Row="1" Text="Au tour de J1 de jouer :" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20,0,10"/>
+
+        <Viewbox Grid.Row="2" Margin="20">
+            <Border Background="#D3D3D3" BorderBrush="Black" BorderThickness="2" CornerRadius="10" Padding="10">
+                <UniformGrid x:Name="GrilleJeu" />
+            </Border>
+        </Viewbox>
+
+        <Button x:Name="BtnEnregistrerQuitter" Grid.Row="3" Content="Enregistrer et quitter" Background="#FFB6C1" BorderBrush="Black" BorderThickness="1" FontSize="16" Height="40" Width="200" HorizontalAlignment="Center" Margin="0,10,0,0" Click="BtnEnregistrerQuitter_Click"/>
+    </Grid>
+</Window>

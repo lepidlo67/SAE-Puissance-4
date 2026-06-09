@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Media;
 
+using Systeme_Puissance_4;
+
 namespace SAE_Puissance_4
 {
     /// <summary>
@@ -9,9 +11,11 @@ namespace SAE_Puissance_4
     /// </summary>
     public partial class Parametres : Window
     {
+        public ParametresJeu MesParametres { get; set; }
         public Parametres()
         {
             InitializeComponent();
+            MesParametres = new ParametresJeu();
         }
 
 
@@ -51,6 +55,16 @@ namespace SAE_Puissance_4
 
         private void BtnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
+            MesParametres.Colonnes = int.Parse(TxtColonnes.Text);
+            MesParametres.Lignes = int.Parse(TxtLignes.Text);
+            MesParametres.JetonsPourGagner = int.Parse(TxtJetons.Text);
+
+            MesParametres.ModeChallenge = TglChallenge.IsChecked == true;
+            MesParametres.ActiverChrono = TglChrono.IsChecked == true;
+
+            MesParametres.DifficulteRobot = (int)SliderDifficulte.Value;
+
+            MessageBox.Show("Modifications enregistrées !");
             this.Close();
         }
 

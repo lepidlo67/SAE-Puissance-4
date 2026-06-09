@@ -26,5 +26,24 @@ namespace SAE_Puissance_4
             Parametres fenetre = new Parametres(); 
             fenetre.ShowDialog(); 
         }
+
+        private void btn_personalisation_Click(object sender, RoutedEventArgs e)
+        {
+            Personalisation fenetre = new Personalisation();
+            fenetre.ShowDialog();
+        }
+
+        private void btn_Jouer_Click(object sender, RoutedEventArgs e)
+        {
+            // 1. On crée l'objet contenant les paramètres par défaut du système
+            Systeme_Puissance_4.ParametresJeu paramsParDefaut = new Systeme_Puissance_4.ParametresJeu();
+
+            // 2. On donne cet objet à la fenêtre de jeu lors de sa création
+            Jeu fenetre = new Jeu(paramsParDefaut);
+
+            // 3. On affiche le jeu et on ferme le menu
+            fenetre.Show();
+            this.Close();
+        }
     }
 }
