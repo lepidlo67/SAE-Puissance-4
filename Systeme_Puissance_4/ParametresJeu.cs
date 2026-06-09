@@ -6,6 +6,7 @@ namespace Systeme_Puissance_4
 {
     public class ParametresJeu
     {
+        public static ParametresJeu Current { get; set; } = new ParametresJeu();
         public bool ContreRobot { get; set; } = false;
         public int DifficulteRobot { get; set; } = 0;  
 

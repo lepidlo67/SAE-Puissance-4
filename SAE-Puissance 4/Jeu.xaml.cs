@@ -18,15 +18,56 @@ namespace SAE_Puissance_4
         public Jeu(ParametresJeu parametres)
         {
             InitializeComponent();
-
-            // On lance le moteur avec les paramètres
             _moteur = new MoteurJeu(parametres);
 
-            // On configure l'interface (noms, scores, etc.)
-            ConfigurerAffichageInitial();
+            // 1. On applique le design global
+            AppliquerPersonnalisation();
 
-            // On dessine la grille
+            ConfigurerAffichageInitial();
             GenererGrilleVisuelle();
+        }
+
+        // Nouvelle méthode à copier-coller
+        private void AppliquerPersonnalisation()
+        {
+            // --- 1. POLICE ---
+            // Applique la police choisie à toute la fenêtre
+            this.FontFamily = new FontFamily(_moteur.Parametres.NomPolice);
+
+            // (Optionnel) Appliquer la taille de base. 
+            // Attention : ça ne modifiera pas les TextBlock où tu as déjà écrit FontSize="24" en dur dans le XAML.
+            this.FontSize = _moteur.Parametres.TaillePolice;
+
+            // --- 2. CONTRASTE ---
+            // 0 = Bas/Normal, 1 = Moyen, 2 = Elevé
+            if (_moteur.Parametres.NiveauContraste == 2)
+            {
+                this.Background = Brushes.Black;
+                this.Foreground = Brushes.White; // Le texte par défaut devient blanc
+            }
+            else if (_moteur.Parametres.NiveauContraste == 1)
+            {
+                this.Background = Brushes.LightGray;
+                this.Foreground = Brushes.Black;
+            }
+            else
+            {
+                this.Background = Brushes.White;
+                this.Foreground = Brushes.Black;
+            }
+
+            // --- 3. COULEURS DES JETONS DANS L'EN-TÊTE ---
+            // Pour que les ronds J1 et J2 en haut de l'écran aient la bonne couleur
+            BrushConverter convertisseur = new BrushConverter();
+
+            // Note : Il faut ajouter un x:Name="JetonJ1" à l'ellipse du joueur 1 dans ton Jeu.xaml pour que ça marche
+            JetonJ1.Fill = (Brush)convertisseur.ConvertFromString(_moteur.Parametres.CouleurJ1);
+
+            if (JetonJ2_Cercle != null)
+                JetonJ2_Cercle.Fill = (Brush)convertisseur.ConvertFromString(_moteur.Parametres.CouleurJ2);
+
+            if (JetonJ2_Carre != null)
+                JetonJ2_Carre.Background = (Brush)convertisseur.ConvertFromString(_moteur.Parametres.CouleurJ2);
         }
 
         private void ConfigurerAffichageInitial()

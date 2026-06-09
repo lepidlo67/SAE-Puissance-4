@@ -26,7 +26,7 @@
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0">
                     <TextBlock Text="👤" FontSize="24" Margin="0,0,10,0"/>
                     <TextBlock Text="J1" FontSize="24" FontWeight="Bold" Margin="0,0,10,0"/>
-                    <Ellipse Width="35" Height="35" Fill="#89CFF0" Stroke="Black" StrokeThickness="2" Margin="0,0,10,0"/>
+                    <Ellipse x:Name="JetonJ1" Width="35" Height="35" Fill="#89CFF0" Stroke="Black" StrokeThickness="2" Margin="0,0,10,0"/>
                     <StackPanel x:Name="PanelChronoJ1" Orientation="Horizontal" Visibility="Collapsed" VerticalAlignment="Center">
                         <TextBlock Text="⏱" FontSize="20" Foreground="Red"/>
                         <TextBlock x:Name="TxtChronoJ1" Text="30sec" FontSize="16" Foreground="Red" FontWeight="Bold" Margin="5,0,0,0"/>

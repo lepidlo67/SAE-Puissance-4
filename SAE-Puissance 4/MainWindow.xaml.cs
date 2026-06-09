@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Systeme_Puissance_4; // Permet d'appeler ton projet Système
 
 namespace SAE_Puissance_4
 {
@@ -19,8 +20,27 @@ namespace SAE_Puissance_4
         public MainWindow()
         {
             InitializeComponent();
+            AppliquerPersonnalisation();
         }
+        private void AppliquerPersonnalisation()
+        {
+            // On lit depuis l'instance statique globale
+            this.FontFamily = new FontFamily(ParametresJeu.Current.NomPolice);
 
+            if (ParametresJeu.Current.NiveauContraste == 2)
+            {
+                this.Background = Brushes.Black;
+                // Comme tes boutons n'ont pas de style complexe, tu pourrais aussi les colorier en noir/blanc ici
+            }
+            else if (ParametresJeu.Current.NiveauContraste == 1)
+            {
+                this.Background = Brushes.LightGray;
+            }
+            else
+            {
+                this.Background = Brushes.White;
+            }
+        }
         private void btn_parametres_Click(object sender, RoutedEventArgs e)
         {
             Parametres fenetre = new Parametres(); 
@@ -35,13 +55,8 @@ namespace SAE_Puissance_4
 
         private void btn_Jouer_Click(object sender, RoutedEventArgs e)
         {
-            // 1. On crée l'objet contenant les paramètres par défaut du système
-            Systeme_Puissance_4.ParametresJeu paramsParDefaut = new Systeme_Puissance_4.ParametresJeu();
+            Jeu fenetre = new Jeu(Systeme_Puissance_4.ParametresJeu.Current);
 
-            // 2. On donne cet objet à la fenêtre de jeu lors de sa création
-            Jeu fenetre = new Jeu(paramsParDefaut);
-
-            // 3. On affiche le jeu et on ferme le menu
             fenetre.Show();
             this.Close();
         }

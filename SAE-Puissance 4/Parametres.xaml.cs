@@ -15,7 +15,19 @@ namespace SAE_Puissance_4
         public Parametres()
         {
             InitializeComponent();
-            MesParametres = new ParametresJeu();
+
+            // MODIFICATION : Au chargement, on affiche les vraies valeurs globales actuelles
+            TxtColonnes.Text = ParametresJeu.Current.Colonnes.ToString();
+            TxtLignes.Text = ParametresJeu.Current.Lignes.ToString();
+            TxtJetons.Text = ParametresJeu.Current.JetonsPourGagner.ToString();
+            TglChallenge.IsChecked = ParametresJeu.Current.ModeChallenge;
+            TglChrono.IsChecked = ParametresJeu.Current.ActiverChrono;
+            SliderDifficulte.Value = ParametresJeu.Current.DifficulteRobot;
+
+            if (ParametresJeu.Current.ContreRobot)
+                BtnVsRobot_Click(null, null);
+            else
+                BtnVsAmi_Click(null, null);
         }
 
 
@@ -55,16 +67,14 @@ namespace SAE_Puissance_4
 
         private void BtnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            MesParametres.Colonnes = int.Parse(TxtColonnes.Text);
-            MesParametres.Lignes = int.Parse(TxtLignes.Text);
-            MesParametres.JetonsPourGagner = int.Parse(TxtJetons.Text);
-
-            MesParametres.ModeChallenge = TglChallenge.IsChecked == true;
-            MesParametres.ActiverChrono = TglChrono.IsChecked == true;
-
-            MesParametres.DifficulteRobot = (int)SliderDifficulte.Value;
-
-            MessageBox.Show("Modifications enregistrées !");
+            //On enregistre directement les choix dans l'instance globale
+            ParametresJeu.Current.Colonnes = int.Parse(TxtColonnes.Text);
+            ParametresJeu.Current.Lignes = int.Parse(TxtLignes.Text);
+            ParametresJeu.Current.JetonsPourGagner = int.Parse(TxtJetons.Text);
+            ParametresJeu.Current.ModeChallenge = TglChallenge.IsChecked == true;
+            ParametresJeu.Current.ActiverChrono = TglChrono.IsChecked == true;
+            ParametresJeu.Current.DifficulteRobot = (int)SliderDifficulte.Value;
+            ParametresJeu.Current.ContreRobot = (BtnVsRobot.Background == Brushes.Black);
             this.Close();
         }
 
